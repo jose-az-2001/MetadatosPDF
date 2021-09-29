@@ -103,16 +103,13 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
         JFileChooser filechooser = new JFileChooser();
         filechooser.setName("Buscar Carpeta");
-        filechooser.setCurrentDirectory(new File("."));
         filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         filechooser.setAcceptAllFileFilterUsed(false);
-        File folder = filechooser.getCurrentDirectory();
         if(filechooser.showOpenDialog(jPanel1) == JFileChooser.APPROVE_OPTION){
-            jTextField1.setText(folder.getAbsolutePath());
+            jTextField1.setText(""+filechooser.getSelectedFile().toPath());
+            File folder = new File(jTextField1.getText()) ;
             this.Files(folder);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
