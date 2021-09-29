@@ -22,12 +22,13 @@ public class Data {
             
             if(!file.isDirectory()){
                 Node n=new Node();
-                Node prev=prev(s,null);
+                
                 n.setFile(file);
                 if(s==null){
                     n.setNext(null);
                     s=n;
                 }else{
+                   Node prev=prev(s,null);
                    prev.setNext(n);
                    n.setNext(null);
                 }
@@ -39,7 +40,7 @@ public class Data {
         return modelo;
     }
     private Node prev(Node aux,Node value){
-        while(aux.getNext()!=value){
+        while(aux.getNext()!=value && aux!=null){
            aux=aux.getNext();
         }
         return aux;
@@ -47,12 +48,15 @@ public class Data {
     public String values(String name) throws IOException{
        String r="";
        Node aux=s;
-       while(aux.getFile().getName()!=name && aux!=null){
+       while(!aux.getFile().getName().equals(name) && aux!=null){
            aux=aux.getNext();
        }
        File f=aux.getFile();
        BasicFileAttributes at= Files.readAttributes(f.toPath(), BasicFileAttributes.class);
-       r="Name: "+f.getName()+"\nPath: "+f.toPath()+"\nSize: "+at.size()+"\nCreationTime: "+at.creationTime();
+       r="Name: "+f.getName()+"\nPath: "+f.toPath()
+                +"\nSize: "+at.size()
+                +"B \nCreationTime: "+at.creationTime()
+                +"\nLastModified:  "+at.lastModifiedTime();
        return r;
     }
 }

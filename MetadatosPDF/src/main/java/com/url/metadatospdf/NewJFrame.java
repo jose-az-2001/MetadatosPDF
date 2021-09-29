@@ -122,6 +122,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         
         try {
+            jTextArea1.setText("");
             jTextArea1.append(Files.values(jList1.getSelectedValue()+""));
         } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
