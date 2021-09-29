@@ -5,6 +5,12 @@
  */
 package com.url.metadatospdf;
 
+import java.io.File;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
+
+
+
 /**
  *
  * @author USUARIO
@@ -16,6 +22,7 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -38,6 +45,11 @@ public class NewJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Browse");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(jList1);
 
@@ -90,6 +102,21 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+        JFileChooser filechooser = new JFileChooser();
+        filechooser.setName("Buscar Carpeta");
+        filechooser.setCurrentDirectory(new File("."));
+        filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        filechooser.setAcceptAllFileFilterUsed(false);
+        File folder = filechooser.getCurrentDirectory();
+        if(filechooser.showOpenDialog(jPanel1) == JFileChooser.APPROVE_OPTION){
+            jTextField1.setText(folder.getAbsolutePath());
+            this.Files(folder);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -124,6 +151,17 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void Files(File Folder){
+        DefaultListModel modelo = new DefaultListModel();
+        for(File file:Folder.listFiles()){
+            if(!file.isDirectory())modelo.addElement(file.getName());
+            else Files(file);
+        }
+        jList1.setModel(modelo);
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
