@@ -11,9 +11,7 @@ public class Data {
     private String path;
     private Node s;
     private Reader read = new Reader();
-    
-    
-    
+    private Reader2 reader2=new Reader2();
     public Data(){
         s=null;
     }
@@ -63,10 +61,9 @@ public class Data {
 //String a = read.Read((f.toPath()).toString());
        r="Name: "+f.getName()+
                "\nPath: "+f.toPath()
-                +"\nSize: "+at.size()
-                +"B \nCreationTime: "+at.creationTime()
-                +"\nLastModified:  "+at.lastModifiedTime()+
-               "\n" + a;
+                +"\nSize: "+at.size()+
+               "\n" + a+
+               reader2.Read(Pathvar);
                
        return r;
     }
