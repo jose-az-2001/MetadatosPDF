@@ -22,6 +22,7 @@ import javax.swing.JFileChooser;
 public class NewJFrame extends javax.swing.JFrame {
     DefaultListModel model=new DefaultListModel();
     Data Files;
+    Reader Documents;
     public NewJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -124,7 +125,7 @@ public class NewJFrame extends javax.swing.JFrame {
         try {
             jTextArea1.setText("");
             jTextArea1.append(Files.values(jList1.getSelectedValue()+""));
-        } catch (IOException ex) {
+            } catch (IOException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jList1MouseClicked

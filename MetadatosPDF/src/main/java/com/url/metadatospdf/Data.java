@@ -10,6 +10,10 @@ public class Data {
     private DefaultListModel modelo = new DefaultListModel();
     private String path;
     private Node s;
+    private Reader read = new Reader();
+    
+    
+    
     public Data(){
         s=null;
     }
@@ -53,10 +57,17 @@ public class Data {
        }
        File f=aux.getFile();
        BasicFileAttributes at= Files.readAttributes(f.toPath(), BasicFileAttributes.class);
-       r="Name: "+f.getName()+"\nPath: "+f.toPath()
+       String Pathvar = f.toPath().toString();
+        System.out.println(Pathvar);
+       String a = read.Read(Pathvar);
+//String a = read.Read((f.toPath()).toString());
+       r="Name: "+f.getName()+
+               "\nPath: "+f.toPath()
                 +"\nSize: "+at.size()
                 +"B \nCreationTime: "+at.creationTime()
-                +"\nLastModified:  "+at.lastModifiedTime();
+                +"\nLastModified:  "+at.lastModifiedTime()+
+               "\n" + a;
+               
        return r;
     }
 }
