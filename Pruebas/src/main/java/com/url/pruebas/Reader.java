@@ -42,7 +42,8 @@ public class Reader {
        }
         return val;
     }
-    public void Read(String path){
+    public String Read(String path){
+        String r = " ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             long xRef=xRefN(path);
@@ -57,7 +58,7 @@ public class Reader {
                     l=archive.readLine();
                     if(l.charAt(l.length()-1)!='f'){
                         //printObj(TB(l), path);
-                        this.searchMetadata(TB(l), path);
+                        r+=this.searchMetadata(TB(l), path);
                     }
                 }
                 n=archive.readLine();
@@ -68,6 +69,8 @@ public class Reader {
         }catch(IOException ex){
            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(r);
+        return r;
     }
     private int num(String f){
         String  r="";
@@ -108,7 +111,8 @@ public class Reader {
         }
     }
     
-    public void searchMetadata(long pos, String path){
+    public String searchMetadata(long pos, String path){
+        String r = " ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             archive.seek(pos);
@@ -118,19 +122,19 @@ public class Reader {
                 for(int i = 0; i < l.length(); i++){
                     if(l.charAt(i) == '/'){
                         if(!this.CountSearchFunction(l).equals("")){
-                            System.out.println(this.CountSearchFunction(l));
+                            r+=(this.CountSearchFunction(l));
                         }
                         if(!this.TitleSearchFunction(l).equals("")){
-                            System.out.println(this.TitleSearchFunction(l));
+                            r+=(this.TitleSearchFunction(l));
                         }
                         if(!this.KeyWordsSearchFunction(l).equals("")){
-                            System.out.println(this.KeyWordsSearchFunction(l));
+                            r+=(this.KeyWordsSearchFunction(l));
                         }
                         if(!this.ImageSearchFunction(l).equals("")){
-                            System.out.println(this.ImageSearchFunction(l));
+                            r+=(this.ImageSearchFunction(l));
                         }
                         if(!this.FontSearchFunction(l).equals("")){
-                            System.out.println(this.FontSearchFunction(l));
+                            r+=(this.FontSearchFunction(l));
                         }
                         break;
                     }
@@ -141,6 +145,8 @@ public class Reader {
         }catch(IOException ex){
            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(r);
+        return r;
     }
     
     

@@ -16,7 +16,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Reader l=new Reader();
-        l.Read("D:/OneDrive/U Cuarto Ciclo/Estructura de Datos II/Encripcion Asincronica.pdf");
+        l.Read("D:/Desktop/Parcial1 Estructuras de Datos II.pdf");
     }
     
 }

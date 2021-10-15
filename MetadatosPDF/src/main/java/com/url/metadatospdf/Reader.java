@@ -33,7 +33,9 @@ public class Reader {
        }
         return val;
     }
-    public void Read(String path){
+    public String Read(String path){
+        System.out.println("LLEGO");
+        String r = " ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             long xRef=xRefN(path);
@@ -48,7 +50,7 @@ public class Reader {
                     l=archive.readLine();
                     if(l.charAt(l.length()-1)!='f'){
                         //printObj(TB(l), path);
-                        this.searchMetadata(TB(l), path);
+                        r+=this.searchMetadata(TB(l), path);
                     }
                 }
                 n=archive.readLine();
@@ -59,6 +61,8 @@ public class Reader {
         }catch(IOException ex){
            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(r);
+        return r;
     }
     private int num(String f){
         String  r="";
@@ -99,7 +103,8 @@ public class Reader {
         }
     }
     
-    public void searchMetadata(long pos, String path){
+    public String searchMetadata(long pos, String path){
+        String r = " ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             archive.seek(pos);
@@ -108,14 +113,22 @@ public class Reader {
                 l=archive.readLine();
                 for(int i = 0; i < l.length(); i++){
                     if(l.charAt(i) == '/'){
-                        System.out.println("Encontre esto");
-                        if(l.charAt(i+1) == 'C' && l.charAt(i+2) == 'o' && l.charAt(i+3) == 'u' && l.charAt(i+4) == 'n' && l.charAt(i+5) == 't'){
-                            System.out.println("Esto si");
-                            int j=i+7;
-                            String Count = "";
-                            
-                            System.out.println("Numero de paginas: " + Count );
+                        if(!this.CountSearchFunction(l).equals("")){
+                            r+=(this.CountSearchFunction(l));
                         }
+                        if(!this.TitleSearchFunction(l).equals("")){
+                            r+=(this.TitleSearchFunction(l));
+                        }
+                        if(!this.KeyWordsSearchFunction(l).equals("")){
+                            r+=(this.KeyWordsSearchFunction(l));
+                        }
+                        if(!this.ImageSearchFunction(l).equals("")){
+                            r+=(this.ImageSearchFunction(l));
+                        }
+                        if(!this.FontSearchFunction(l).equals("")){
+                            r+=(this.FontSearchFunction(l));
+                        }
+                        break;
                     }
                 }
                 //System.out.println(""+l);
@@ -124,5 +137,78 @@ public class Reader {
         }catch(IOException ex){
            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //System.out.println(r);
+        return r;
+    }
+    
+    
+    private String CountSearchFunction(String Line){
+        String r = "";
+        for(int i = 0; i < Line.length()-6; i++){
+            if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'C' && Line.charAt(i+2) == 'o' && Line.charAt(i+3) == 'u' && Line.charAt(i+4) == 'n' && Line.charAt(i+5) == 't'){
+                
+                do{
+                    r = r + Line.charAt(i);
+                    i++;
+                }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                break;
+            }
+        }
+        return r;
+    }
+    
+    private String TitleSearchFunction(String Line){
+        String r = "";
+        for(int i = 0; i < Line.length()-6; i++){
+            if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'T' && Line.charAt(i+2) == 'i' && Line.charAt(i+3) == 't' && Line.charAt(i+4) == 'l' && Line.charAt(i+5) == 'e'){
+                do{
+                    r = r + Line.charAt(i);
+                    i++;
+                }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                break;
+            }
+        }
+        return r;
+    }
+    
+    private String KeyWordsSearchFunction(String Line){
+        String r = "";
+        for(int i = 0; i < Line.length()-6; i++){
+            if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'K' && Line.charAt(i+2) == 'e' && Line.charAt(i+3) == 'y' && Line.charAt(i+4) == 'w' && Line.charAt(i+5) == 'o' && Line.charAt(i+5) == 'r' && Line.charAt(i+5) == 'd' && Line.charAt(i+5) == 's' ){
+                do{
+                    r = r + Line.charAt(i);
+                    i++;
+                }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                break;
+            }
+        }
+        return r;
+    }
+    
+    private String ImageSearchFunction(String Line){
+        String r = "";
+        for(int i = 0; i < Line.length()-6; i++){
+            if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'I' && Line.charAt(i+2) == 'm' && Line.charAt(i+3) == 'a' && Line.charAt(i+4) == 'g' && Line.charAt(i+5) == 'e'){
+                for(int j = i; j < i+7; j++){
+                    r = r + Line.charAt(j);
+                }
+                break;
+            }
+        }
+        return r;
+    }
+    
+    private String FontSearchFunction(String Line){
+        String r = "";
+        for(int i = 0; i < Line.length()-6; i++){
+            if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'F' && Line.charAt(i+2) == 'o' && Line.charAt(i+3) == 'n' && Line.charAt(i+4) == 't' && Line.charAt(i+5) == 'N' && Line.charAt(i+5) == 'a' && Line.charAt(i+5) == 'm' && Line.charAt(i+5) == 'e'){
+                do{
+                    r = r + Line.charAt(i);
+                    i++;
+                }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                break;
+            }
+        }
+        return r;
     }
 }
