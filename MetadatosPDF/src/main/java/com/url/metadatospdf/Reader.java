@@ -33,15 +33,17 @@ public class Reader {
        }
         return val;
     }
+    
     public String Read(String path){
-        System.out.println("LLEGO");
         String r = " ";
+        String r2=" ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             long xRef=xRefN(path);
             archive.seek(xRef);
             archive.readLine();
             String n=archive.readLine();
+            int inf=Info(path);
             do{
                 int v=num(n);
                 System.out.println(""+v);
@@ -49,8 +51,9 @@ public class Reader {
                 for (int i=0;i<v;i++){
                     l=archive.readLine();
                     if(l.charAt(l.length()-1)!='f'){
-                        //printObj(TB(l), path);
                         r+=this.searchMetadata(TB(l), path);
+                        if(i==inf)
+                        r2+=Vls(printObj(TB(l), path));  
                     }
                 }
                 n=archive.readLine();
@@ -62,7 +65,61 @@ public class Reader {
            Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
         }
         //System.out.println(r);
-        return r;
+        return r+"\n"+r2;
+    }
+    private int Info(String path){
+        int n=0;
+        try {
+           RandomAccessFile archive=new RandomAccessFile(path,"r");
+           String l=" ";
+           while(!l.equals("trailer")){
+               l=archive.readLine();
+           }
+           do{
+                l=archive.readLine();
+                if(l.length()>6){
+                    n=word(l);
+                }                
+           }while(l.length()<12);
+           archive.close();
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+       }catch(IOException ex){
+           Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+       }
+        return n;
+    }
+    private int word(String w){
+        String r="0";
+        int j=0;
+        String wd="";
+        for(int i=0;i<w.length();i++){
+           wd=" ";
+           wd+=w.charAt(i);
+            if(i+1<w.length()){
+                wd+=w.charAt(i+1);
+            }
+            if(i+2<w.length()){
+                wd+=w.charAt(i+2);
+            }
+            if(i+3<w.length()){
+                wd+=w.charAt(i+3);
+            }           
+            j=i;
+            if(wd.equals(" Info")){
+                break;
+            }
+        }
+        if(wd.equals(" Info")){
+            j=j+5;
+            char le;
+                do{
+                    le=w.charAt(j);
+                    if(le!=' ') r+=le;
+                    j++;
+                }while(le!=' ');                
+        }
+        return Integer.valueOf(r);
     }
     private int num(String f){
         String  r="";
@@ -85,24 +142,64 @@ public class Reader {
         }
         return Long.valueOf(r);
     }
-    private void printObj(long pos, String path){
-        try {
-            RandomAccessFile archive=new RandomAccessFile(path,"r");
-            archive.seek(pos);
-            String l=" ";
-            while(!l.equals("endobj")){
-               
-               l=archive.readLine();
-               System.out.println(""+l);
-            }
-          
-        } catch (FileNotFoundException ex) {
-           Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(IOException ex){
-           Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
+    private String printObj(long pos, String path){
+        String r="";
+            try {
+               RandomAccessFile archive=new RandomAccessFile(path,"r");
+               archive.seek(pos);
+               archive.readLine();
+               r=archive.readLine();
+              archive.close();
+           } catch (FileNotFoundException ex) {
+               Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+           }catch(IOException ex){
+               Logger.getLogger(Reader.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            return r;
+    }
+    private String Vls(String l){
+      System.out.println(""+l);
+        String wd="";
+        char le=' ';
+        int i=9;
+        wd="\n Autor ";
+            while((int)le!=41){
+                i=i+1;
+                le=l.charAt(i);
+                wd+=le;
+            }
+           // System.out.println(""+wd);
+           i=i+10;
+           le=l.charAt(i);
+           
+            
+            wd+="\n Programa ";
+            while((int)le!=41){
+                i=i+1;
+                le=l.charAt(i);
+                wd+=le;
+            }
+            i=i+16;
+            le=l.charAt(i);
+            wd+="\n Fecha de creacion";
+            while((int)le!=41 ){
+               i=i+1;
+                le=l.charAt(i);
+                wd+=le;
+                
+            }
+            i=i+11;
+            le=l.charAt(i);
+            wd+="\n Fecha de Modificacion";
+            while((int)le!=41){
+               i=i+1;
+                le=l.charAt(i);
+                wd+=le;
+                
+            }
+        return wd;
+    }
     public String searchMetadata(long pos, String path){
         String r = " ";
         try {
@@ -184,7 +281,6 @@ public class Reader {
         }
         return r;
     }
-    
     private String ImageSearchFunction(String Line){
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){
@@ -197,7 +293,6 @@ public class Reader {
         }
         return r;
     }
-    
     private String FontSearchFunction(String Line){
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){

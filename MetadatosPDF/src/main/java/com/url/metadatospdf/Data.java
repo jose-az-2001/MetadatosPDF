@@ -11,7 +11,6 @@ public class Data {
     private String path;
     private Node s;
     private Reader read = new Reader();
-    private Reader2 reader2=new Reader2();
     public Data(){
         s=null;
     }
@@ -56,14 +55,13 @@ public class Data {
        File f=aux.getFile();
        BasicFileAttributes at= Files.readAttributes(f.toPath(), BasicFileAttributes.class);
        String Pathvar = f.toPath().toString();
-        System.out.println(Pathvar);
+        System.out.println("pathvar"+Pathvar);
        String a = read.Read(Pathvar);
 //String a = read.Read((f.toPath()).toString());
        r="Name: "+f.getName()+
                "\nPath: "+f.toPath()
                 +"\nSize: "+at.size()+
-               "\n" + a+
-               reader2.Read(Pathvar);
+               "\n" + a;
                
        return r;
     }
