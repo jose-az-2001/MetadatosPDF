@@ -33,12 +33,21 @@ public class Data {
                    prev.setNext(n);
                    n.setNext(null);
                 }
-                
-                modelo.addElement(file.getName());            
+                String fileN=file.getName();
+                if("pdf".equals(l3(fileN)))
+                modelo.addElement(fileN);            
             }
             else Files1(file);
         }
         return modelo;
+    }
+    private String l3(String fileN){
+        String r="";
+        for(int i=fileN.length()-1;i>=fileN.length()-3;i--){
+            r=fileN.charAt(i)+r;
+        }
+        System.out.println(""+r);
+        return r;
     }
     private Node prev(Node aux,Node value){
         while(aux.getNext()!=value && aux!=null){
