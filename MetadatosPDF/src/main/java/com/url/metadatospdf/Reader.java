@@ -211,7 +211,7 @@ public class Reader {
                 l=archive.readLine();
                 for(int i = 0; i < l.length(); i++){
                     if(l.charAt(i) == '/'){
-                        if(!this.CountSearchFunction(l).equals("") && count == false){
+                        if(!this.CountSearchFunction(l).equals("")){
                             r+=(this.CountSearchFunction(l));
                             count = true;
                         }
@@ -223,7 +223,6 @@ public class Reader {
                         }
                         if(!this.ImageSearchFunction(l).equals("")){
                             r+=(this.ImageSearchFunction(l));
-                            i = l.length()+1;
                         }
                         if(!this.FontSearchFunction(l).equals("")){
                             r+=(this.FontSearchFunction(l));
@@ -298,6 +297,7 @@ public class Reader {
                     r = r + Line.charAt(j+1);
                 }
                 r = r + "\n";
+                i = Line.length();
                 break;
             }
         }

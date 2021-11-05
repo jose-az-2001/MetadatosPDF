@@ -73,7 +73,7 @@ public class Data {
        r="Name: "+f.getName()+
                "\nPath: "+f.toPath()
                 +"\nSize: "+at.size()+
-               "\n" + a;
+               "bytes \n" + a;
                
        return r;
     }
