@@ -32,11 +32,12 @@ public class Data {
                    Node prev=prev(s,null);
                    prev.setNext(n);
                    n.setNext(null);
+                   
                 }
                 String fileN=file.getName();
                 if("pdf".equals(l3(fileN))){
                     modelo.addElement(fileN);
-                    w.addPdf(fileN);
+                    w.addPdf(file);
                 }            
             }
             else Files1(file);

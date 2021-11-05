@@ -4,6 +4,7 @@
  */
 package com.url.metadatospdf;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -15,14 +16,16 @@ import java.util.logging.Logger;
  * @author USUARIO
  */
 public class Writer {
+    private Reader r=new Reader();
     public Writer(){
     
     }
-    public void addPdf(String fileN){
+    public void addPdf(File file){
         try { 
              RandomAccessFile archive=new RandomAccessFile("archive.bin","rw");
              archive.seek(archive.length());
-            archive.writeChars(fileN);
+            archive.writeChars(file.getName());
+            archive.writeChars(r.Read(file.getPath()));
             while(archive.getFilePointer()!=archive.length())
              System.out.println(""+archive.readLine());
        } catch (FileNotFoundException ex) {
