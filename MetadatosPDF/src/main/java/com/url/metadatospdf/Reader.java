@@ -201,6 +201,7 @@ public class Reader {
         return wd;
     }
     public String searchMetadata(long pos, String path){
+        boolean count = false, title = false;
         String r = " ";
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
@@ -210,8 +211,9 @@ public class Reader {
                 l=archive.readLine();
                 for(int i = 0; i < l.length(); i++){
                     if(l.charAt(i) == '/'){
-                        if(!this.CountSearchFunction(l).equals("")){
+                        if(!this.CountSearchFunction(l).equals("") && count == false){
                             r+=(this.CountSearchFunction(l));
+                            count = true;
                         }
                         if(!this.TitleSearchFunction(l).equals("")){
                             r+=(this.TitleSearchFunction(l));
@@ -221,6 +223,7 @@ public class Reader {
                         }
                         if(!this.ImageSearchFunction(l).equals("")){
                             r+=(this.ImageSearchFunction(l));
+                            i = l.length()+1;
                         }
                         if(!this.FontSearchFunction(l).equals("")){
                             r+=(this.FontSearchFunction(l));
@@ -243,11 +246,12 @@ public class Reader {
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){
             if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'C' && Line.charAt(i+2) == 'o' && Line.charAt(i+3) == 'u' && Line.charAt(i+4) == 'n' && Line.charAt(i+5) == 't'){
-                
+                r = "No de Paginas: ";
                 do{
-                    r = r + Line.charAt(i);
+                    r = r + Line.charAt(i+7);
                     i++;
-                }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                }while(Line.charAt(i+7) != '/' || i == Line.length()-1);
+                r = r + "\n";
                 break;
             }
         }
@@ -258,10 +262,12 @@ public class Reader {
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){
             if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'T' && Line.charAt(i+2) == 'i' && Line.charAt(i+3) == 't' && Line.charAt(i+4) == 'l' && Line.charAt(i+5) == 'e'){
+                r = "Titulo: ";
                 do{
                     r = r + Line.charAt(i);
                     i++;
                 }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                r = r + "\n";
                 break;
             }
         }
@@ -272,10 +278,12 @@ public class Reader {
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){
             if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'K' && Line.charAt(i+2) == 'e' && Line.charAt(i+3) == 'y' && Line.charAt(i+4) == 'w' && Line.charAt(i+5) == 'o' && Line.charAt(i+5) == 'r' && Line.charAt(i+5) == 'd' && Line.charAt(i+5) == 's' ){
+                r = "Palabras Clave: ";
                 do{
                     r = r + Line.charAt(i);
                     i++;
                 }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                r = r + "\n";
                 break;
             }
         }
@@ -285,9 +293,11 @@ public class Reader {
         String r = "";
         for(int i = 0; i < Line.length()-6; i++){
             if(Line.charAt(i) == '/' &&Line.charAt(i+1) == 'I' && Line.charAt(i+2) == 'm' && Line.charAt(i+3) == 'a' && Line.charAt(i+4) == 'g' && Line.charAt(i+5) == 'e'){
+                r = "Imagen: ";
                 for(int j = i; j < i+7; j++){
-                    r = r + Line.charAt(j);
+                    r = r + Line.charAt(j+1);
                 }
+                r = r + "\n";
                 break;
             }
         }
@@ -301,6 +311,7 @@ public class Reader {
                     r = r + Line.charAt(i);
                     i++;
                 }while(Line.charAt(i) != '/' || i == Line.length()-1);
+                r = r + "\n";
                 break;
             }
         }
