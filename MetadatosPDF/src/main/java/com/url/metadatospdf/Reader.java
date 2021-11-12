@@ -203,6 +203,7 @@ public class Reader {
     public String searchMetadata(long pos, String path){
         boolean count = false, title = false;
         String r = " ";
+        int imacount = 0;
         try {
             RandomAccessFile archive=new RandomAccessFile(path,"r");
             archive.seek(pos);
@@ -222,13 +223,16 @@ public class Reader {
                             r+=(this.KeyWordsSearchFunction(l));
                         }
                         if(!this.ImageSearchFunction(l).equals("")){
-                            r+=(this.ImageSearchFunction(l));
+                            imacount++;
                         }
                         if(!this.FontSearchFunction(l).equals("")){
                             r+=(this.FontSearchFunction(l));
                         }
                         break;
                     }
+                }
+                if(imacount != 0){
+                    r+=("Imagenes: " + imacount);
                 }
                 //System.out.println(""+l);
         } catch (FileNotFoundException ex) {

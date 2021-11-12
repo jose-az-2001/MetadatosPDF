@@ -44,6 +44,7 @@ public class Data {
         }
         return modelo;
     }
+   
     private String l3(String fileN){
         String r="";
         for(int i=fileN.length()-1;i>=fileN.length()-3;i--){
