@@ -10,8 +10,8 @@ public class Data {
     private DefaultListModel modelo = new DefaultListModel();
     private String path;
     private Node s;
+    private Writer w=new Writer();
     private Reader read = new Reader();
-    private Reader2 reader2=new Reader2();
     public Data(){
         s=null;
     }
@@ -24,7 +24,6 @@ public class Data {
             
             if(!file.isDirectory()){
                 Node n=new Node();
-                
                 n.setFile(file);
                 if(s==null){
                     n.setNext(null);
@@ -33,13 +32,26 @@ public class Data {
                    Node prev=prev(s,null);
                    prev.setNext(n);
                    n.setNext(null);
+                   
                 }
-                
-                modelo.addElement(file.getName());            
+                String fileN=file.getName();
+                if("pdf".equals(l3(fileN))){
+                    modelo.addElement(fileN);
+                    w.addPdf(file);
+                }            
             }
             else Files1(file);
         }
         return modelo;
+    }
+   
+    private String l3(String fileN){
+        String r="";
+        for(int i=fileN.length()-1;i>=fileN.length()-3;i--){
+            r=fileN.charAt(i)+r;
+        }
+        System.out.println(""+r);
+        return r;
     }
     private Node prev(Node aux,Node value){
         while(aux.getNext()!=value && aux!=null){
@@ -56,14 +68,13 @@ public class Data {
        File f=aux.getFile();
        BasicFileAttributes at= Files.readAttributes(f.toPath(), BasicFileAttributes.class);
        String Pathvar = f.toPath().toString();
-        System.out.println(Pathvar);
+        System.out.println("pathvar"+Pathvar);
        String a = read.Read(Pathvar);
-//String a = read.Read((f.toPath()).toString());
+
        r="Name: "+f.getName()+
                "\nPath: "+f.toPath()
                 +"\nSize: "+at.size()+
-               "\n" + a+
-               reader2.Read(Pathvar);
+               "bytes \n" + a;
                
        return r;
     }
