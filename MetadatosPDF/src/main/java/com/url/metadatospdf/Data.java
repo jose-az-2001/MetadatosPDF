@@ -70,11 +70,12 @@ public class Data {
        try { 
              RandomAccessFile archives=new RandomAccessFile("archive.txt","rw");
            archives.seek(0);
-           String L="";
+           String L=archives.readLine();
+           System.out.println(""+pd3(L));
            while(archives.getFilePointer()!=archives.length()){
                L=archives.readLine();
                System.out.println(""+pd3(L));
-               if(pd3(L).equals("pdf")){
+               if(pd3(L).equals(".pdf")){
                    break;
                }
            }
@@ -101,9 +102,14 @@ public class Data {
     }*/
     private String pd3(String L){
         String r="";
-        for(int i=1;i<4;){
-            r+=L.charAt(L.length()-i);
+        int i=L.length()-1;
+        char c=' ';
+        while(c!='.'&& i>=0){
+            c=L.charAt(i);
+            i--;
+            r=c+r;
         }
+        System.out.println(""+r);
         return r;
     }
     private String l3(String fileN){
