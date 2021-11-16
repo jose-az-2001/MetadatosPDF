@@ -1,7 +1,9 @@
 package com.url.metadatospdf;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.logging.Level;
@@ -38,11 +40,12 @@ public class Data {
                 }
                 String fileN=file.getName();
                 if("pdf".equals(l3(fileN))){
+                    
                     modelo.addElement(fileN);
                     w.addPdf(file);
                     try {
                         w.addDesc(values(fileN));
-                        
+                        fn();
                         //System.out.println("txt"+file);
                     } catch (IOException ex) {
                         Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
@@ -54,7 +57,36 @@ public class Data {
         w.posiciones();
         return modelo;
     }
-   
+  public DefaultListModel fn(){
+      DefaultListModel dm=new DefaultListModel();
+       try { 
+             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+             archive.seek(0);
+             //archive.seek(archive.getFilePointer()-(long)1);
+            long i=archive.getFilePointer();
+            while(archive.getFilePointer()!=archive.length()){
+                System.out.println("lo que dice la ultimalinea :"+archive.readLine());
+            }
+             archive.close();
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+       }catch(IOException ex){
+           Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+       }
+       return dm;
+   }
+   public void nombre(long pos){
+        /*Esta funcion lee los nombres de los pdf*/
+        try { 
+             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+             archive.seek(pos);
+             System.out.println(""+archive.readLine());
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+       }catch(IOException ex){
+           Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
     private String l3(String fileN){
         String r="";
         for(int i=fileN.length()-1;i>=fileN.length()-3;i--){

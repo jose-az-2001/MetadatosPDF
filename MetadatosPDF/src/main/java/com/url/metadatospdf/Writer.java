@@ -27,6 +27,7 @@ public class Writer {
             Data wr=new Data();
             archive.seek(archive.length());
             Node Nw=new Node();
+            archive.writeByte(1);
            
             if(n==null){
                 n=Root;
@@ -51,8 +52,9 @@ public class Writer {
             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
             archive.seek(archive.length());
             Node aux=Root;
+            archive.writeChars("///////////////");
             while(aux.getNext()!=null){
-                System.out.println(""+aux.getPos());
+               
                 archive.writeChars("\n"+aux.getPos());
                 aux=aux.getNext();
             }
@@ -63,18 +65,7 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    public void nombre(long pos){
-        /*Esta funcion lee los nombres de los pdf*/
-        try { 
-             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
-             archive.seek(pos);
-             System.out.println(""+archive.readLine());
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }catch(IOException ex){
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }
+    
     public void addDesc(String Desc){
         try { 
              RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
