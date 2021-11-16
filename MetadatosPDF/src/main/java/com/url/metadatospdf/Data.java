@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 public class Data {
@@ -38,10 +40,19 @@ public class Data {
                 if("pdf".equals(l3(fileN))){
                     modelo.addElement(fileN);
                     w.addPdf(file);
+                    try {
+                        w.addDesc(values(fileN));
+                        
+                        //System.out.println("txt"+file);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }            
             }
             else Files1(file);
         }
+        w.RecorrerLista();
+        w.posiciones();
         return modelo;
     }
    
@@ -50,7 +61,7 @@ public class Data {
         for(int i=fileN.length()-1;i>=fileN.length()-3;i--){
             r=fileN.charAt(i)+r;
         }
-        System.out.println(""+r);
+       
         return r;
     }
     private Node prev(Node aux,Node value){
@@ -68,7 +79,7 @@ public class Data {
        File f=aux.getFile();
        BasicFileAttributes at= Files.readAttributes(f.toPath(), BasicFileAttributes.class);
        String Pathvar = f.toPath().toString();
-        System.out.println("pathvar"+Pathvar);
+        
        String a = read.Read(Pathvar);
 
        r="Name: "+f.getName()+

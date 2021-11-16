@@ -46,7 +46,7 @@ public class Reader {
             int inf=Info(path);
             do{
                 int v=num(n);
-                System.out.println(""+v);
+               // System.out.println(""+v);
                 String l="";
                 for (int i=0;i<v;i++){
                     l=archive.readLine();
@@ -159,7 +159,7 @@ public class Reader {
             return r;
     }
     private String Vls(String l){
-      System.out.println(""+l);
+     // System.out.println(""+l);
         String wd="";
         char le=' ';
         int i=9;
