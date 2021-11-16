@@ -23,7 +23,7 @@ public class Writer {
     }
     public void addPdf(File file){
         try { 
-             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+             RandomAccessFile archive=new RandomAccessFile("archive.bin","rw");
             Data wr=new Data();
             archive.seek(archive.length());
             Node Nw=new Node();
@@ -48,7 +48,7 @@ public class Writer {
     }
     public void addDesc(String Desc){
         try { 
-             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+             RandomAccessFile archive=new RandomAccessFile("archive.bin","rw");
              Data wr=new Data();
              archive.seek(archive.length());
             archive.writeChars(Desc);
@@ -62,7 +62,7 @@ public class Writer {
     }
     public void posiciones(){
         try { 
-            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+            RandomAccessFile archive=new RandomAccessFile("archive.bin","rw");
             archive.seek(archive.length());
             Node aux=Root;
             archive.writeChars("///////");
