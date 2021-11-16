@@ -48,11 +48,11 @@ public class Writer {
     }
     public void addDesc(String Desc){
         try { 
-             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
-             Data wr=new Data();
-             archive.seek(archive.length());
+            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+            Data wr=new Data();
+            archive.seek(archive.length());
             archive.writeChars(Desc);
-           archive.writeChars("\n");
+            archive.writeChars("\n");
             archive.close();
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,11 +65,10 @@ public class Writer {
             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
             archive.seek(archive.length());
             Node aux=Root;
-            archive.writeChars("///////");
-            archive.writeChars("\n");
+            archive.writeChars("---\n");
             while(aux.getNext()!=null){
                if(aux!=null){
-                    archive.writeChars("\n"+aux.getPos());
+                    archive.writeChars(aux.getPos()+"\n");
                }
                aux=aux.getNext();
             }

@@ -6,6 +6,7 @@ public class Node {
    File file;
    Node next;
    long pos;
+   
     public Node(){
         this.file=null;
         this.next=null;
