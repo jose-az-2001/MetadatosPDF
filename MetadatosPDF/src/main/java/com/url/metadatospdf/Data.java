@@ -51,7 +51,6 @@ public class Data {
             }
             else Files1(file);
         }
-        w.RecorrerLista();
         w.posiciones();
         return modelo;
     }

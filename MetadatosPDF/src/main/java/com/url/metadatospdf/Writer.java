@@ -45,14 +45,7 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    public void RecorrerLista(){
-        Node aux=Root;
-        while(aux.getNext()!=null){
-            System.out.println(""+aux.getPos());
-            nombre(aux.getPos());
-            aux=aux.getNext();
-        }
-    }
+    
     public void posiciones(){
         try { 
             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
@@ -63,7 +56,7 @@ public class Writer {
                 archive.writeChars("\n"+aux.getPos());
                 aux=aux.getNext();
             }
-          
+          archive.writeChars("\n");
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }catch(IOException ex){
