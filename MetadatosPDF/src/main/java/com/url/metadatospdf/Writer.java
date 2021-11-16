@@ -60,7 +60,7 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    public void posiciones(){
+    /*public void posiciones(){
         try { 
             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
             archive.seek(archive.length());
@@ -80,7 +80,7 @@ public class Writer {
        }catch(IOException ex){
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
-    }
+    }*/
    
     
 }
