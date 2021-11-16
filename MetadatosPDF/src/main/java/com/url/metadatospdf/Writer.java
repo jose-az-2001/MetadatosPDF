@@ -46,33 +46,13 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    
-    public void posiciones(){
-        try { 
-            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
-            archive.seek(archive.length());
-            Node aux=Root;
-            archive.writeChars("///////////////");
-            while(aux.getNext()!=null){
-               
-                archive.writeChars("\n"+aux.getPos());
-                aux=aux.getNext();
-            }
-          archive.writeChars("\n");
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }catch(IOException ex){
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }
-    
     public void addDesc(String Desc){
         try { 
              RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
              Data wr=new Data();
              archive.seek(archive.length());
             archive.writeChars(Desc);
-           archive.writeChars("\n \n");
+           archive.writeChars("\n");
             archive.close();
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,4 +60,38 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
+    public void posiciones(){
+        try { 
+            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+            archive.seek(archive.length());
+            Node aux=Root;
+            //archive.writeChars("///////////////");
+            while(aux.getNext()!=null){
+               if(aux!=null){
+                    archive.writeChars("\n");
+                    archive.writeLong(aux.getPos());
+               }
+               aux=aux.getNext();
+            }
+          archive.writeChars("\n");
+          archive.close();
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+       }catch(IOException ex){
+           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+    public void relleno(){
+        try { 
+            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+            archive.seek(archive.length());
+            archive.writeChars("\n////////////////////////////");
+          archive.close();
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+       }catch(IOException ex){
+           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+    
 }

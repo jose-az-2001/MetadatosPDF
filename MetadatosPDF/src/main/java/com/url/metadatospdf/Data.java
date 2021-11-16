@@ -55,38 +55,41 @@ public class Data {
             else Files1(file);
         }
         w.posiciones();
+        w.relleno();
+        w.relleno();
         return modelo;
     }
-  public DefaultListModel fn(){
+  public void fn(){
       DefaultListModel dm=new DefaultListModel();
        try { 
-             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
+             RandomAccessFile archive=new RandomAccessFile("archive.txt","r");
              archive.seek(0);
-             //archive.seek(archive.getFilePointer()-(long)1);
-            long i=archive.getFilePointer();
             while(archive.getFilePointer()!=archive.length()){
                 System.out.println("lo que dice la ultimalinea :"+archive.readLine());
             }
+           System.out.println("final: "+archive.getFilePointer());
+           System.out.println("final: "+archive.length());
              archive.close();
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }catch(IOException ex){
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }
-       return dm;
+       //return dm;
    }
-   public void nombre(long pos){
-        /*Esta funcion lee los nombres de los pdf*/
+  /* public void nombre(long pos){
+        //Esta funcion lee los nombres de los pdf
         try { 
              RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
              archive.seek(pos);
              System.out.println(""+archive.readLine());
+             archive.close();
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }catch(IOException ex){
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }
-    }
+    }*/
     private String l3(String fileN){
         String r="";
         for(int i=fileN.length()-1;i>=fileN.length()-3;i--){
