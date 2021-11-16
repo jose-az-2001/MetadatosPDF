@@ -65,11 +65,11 @@ public class Writer {
             RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
             archive.seek(archive.length());
             Node aux=Root;
-            //archive.writeChars("///////////////");
+            archive.writeChars("///////");
+            archive.writeChars("\n");
             while(aux.getNext()!=null){
                if(aux!=null){
-                    archive.writeChars("\n");
-                    archive.writeLong(aux.getPos());
+                    archive.writeChars("\n"+aux.getPos());
                }
                aux=aux.getNext();
             }
@@ -81,17 +81,6 @@ public class Writer {
            Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
        }
     }
-    public void relleno(){
-        try { 
-            RandomAccessFile archive=new RandomAccessFile("archive.txt","rw");
-            archive.seek(archive.length());
-            archive.writeChars("\n////////////////////////////");
-          archive.close();
-       } catch (FileNotFoundException ex) {
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }catch(IOException ex){
-           Logger.getLogger(Writer.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }
+   
     
 }
