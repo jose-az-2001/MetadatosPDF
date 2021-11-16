@@ -55,29 +55,35 @@ public class Data {
             else Files1(file);
         }
         w.posiciones();
-        
+        File binario=new File("archive.txt");
+        if(binario.exists()){
+            rb();
+        }
         return modelo;
     }
     public void rp(){
        rb();
        
     }
-    public String rb(){
-     String RBB="";
+    public DefaultListModel rb(){
+    DefaultListModel r=new DefaultListModel();
        try { 
              RandomAccessFile archives=new RandomAccessFile("archive.txt","rw");
-             String L="";
-            while(archives.getFilePointer()!=archives.length() && !L.equals("---")){
-                 L=archives.readLine();
-            }
-            System.out.println("se encontro:"+L);
-            archives.close();
+           archives.seek(0);
+           String L="";
+           while(archives.getFilePointer()!=archives.length()){
+               L=archives.readLine();
+               System.out.println(""+pd3(L));
+               if(pd3(L).equals("pdf")){
+                   break;
+               }
+           }
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }catch(IOException ex){
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }
-     return RBB;
+     return r;
    }
     
   /* public void nombre(long pos){
@@ -93,6 +99,13 @@ public class Data {
            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
        }
     }*/
+    private String pd3(String L){
+        String r="";
+        for(int i=1;i<4;){
+            r+=L.charAt(L.length()-i);
+        }
+        return r;
+    }
     private String l3(String fileN){
         String r="";
         for(int i=fileN.length()-1;i>=fileN.length()-3;i--){

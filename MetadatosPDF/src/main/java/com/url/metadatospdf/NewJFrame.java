@@ -112,10 +112,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFileChooser filechooser = new JFileChooser();
         Files=new Data();
-        File binario=new File("archive.txt");
-        if(binario.exists()){
-            Files.rb();
-        }
+        
         filechooser.setName("Buscar Carpeta");
         filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         filechooser.setAcceptAllFileFilterUsed(false);
